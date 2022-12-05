@@ -1,42 +1,16 @@
-# This is a super ugly solution.
-# I share because my goal for the day
-# was to parse the stupid input
-# completely.
-#
-# There is a lot of regex and loops in
-# loops here. I totally understand this
-# is super inefficient.
-#
-# Perhaps I'll clean this up. I'm sure
-# I'll look at other peopels solutions
-# and face palm at how stupid I am. But
-# at least I parsed the stupid file.
-
-require 'csv'
-
 def file_input
     File.readlines("input")
 end
 
-def unparsed_boxes
+def unparsed_input_rows
     input = file_input
     input.slice(0..input.index("\n") - 2)
 end
 
-def parsed_boxes
-    # This is horrible! But the gist
-    # is that I'm getting things into
-    # a CSV format for parsing.
-    unparsed_boxes.map do |row|
-        CSV.parse(
-            row.gsub("    ", "[air]")
-               .gsub(" ", "")
-               .gsub("][", "],[")
-               .gsub("[", "")
-               .gsub("]", "")
-               .strip,
-            headers: false,
-        )[0]
+def parsed_input_rows
+    regex = /[\[ ](?<letter>[A-Z ])[\] ] ?/
+    unparsed_input_rows.map do |row|
+        row.scan(regex)
     end
 end
 
@@ -51,14 +25,17 @@ def parsed_instructions
     end
 end
 
-def useable_stacks
-    reversed_boxes = parsed_boxes.reverse
+def reversed_input_rows
+    parsed_input_rows.reverse
+end
+
+def parsed_stacks
     stacks = []
 
-    reversed_boxes.each do |row|
+    reversed_input_rows.each do |row|
         row.each_with_index do |box, index|
             stacks[index] = [] unless stacks[index]
-            stacks[index] << box unless box.include?("air")
+            stacks[index] << box unless box.include?(" ")
         end
     end
 
@@ -66,7 +43,7 @@ def useable_stacks
 end
 
 def get_updated_stacks(reverse)
-    stacks = useable_stacks
+    stacks = parsed_stacks
     
     parsed_instructions.each do |instruction|
         amount, from, to = instruction
