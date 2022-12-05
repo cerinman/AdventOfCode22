@@ -1,3 +1,17 @@
+# This is a super ugly solution.
+# I share because my goal for the day
+# was to parse the stupid input
+# completely.
+#
+# There is a lot of regex and loops in
+# loops here. I totally understand this
+# is super inefficient.
+#
+# Perhaps I'll clean this up. I'm sure
+# I'll look at other peopels solutions
+# and face palm at how stupid I am. But
+# at least I parsed the stupid file.
+
 require 'csv'
 
 def file_input
