@@ -70,12 +70,7 @@ def get_updated_stacks(reverse)
     
     parsed_instructions.each do |instruction|
         amount, from, to = instruction
-        needs_to_move = []
-        # I could use shift here but at this point
-        # I'm kind of done for the day....
-        amount.times do
-            needs_to_move << stacks[from - 1].pop
-        end
+        needs_to_move = stacks[from - 1].pop(amount)
         stacks[to - 1].concat(reverse ? needs_to_move.reverse : needs_to_move)
     end
 
@@ -86,5 +81,5 @@ def solve(reverse)
     p "Answer: #{get_updated_stacks(reverse).map(&:last).join}"
 end
 
-solve(false)
 solve(true)
+solve(false)
