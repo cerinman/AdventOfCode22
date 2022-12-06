@@ -34,7 +34,7 @@ def parsed_stacks
 
     reversed_input_rows.each do |row|
         row.each_with_index do |box, index|
-            stacks[index] = [] unless stacks[index]
+            stacks[index] ||= []
             stacks[index] << box unless box.include?(" ")
         end
     end
