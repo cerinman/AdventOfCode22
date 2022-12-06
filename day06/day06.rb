@@ -12,13 +12,9 @@ def starting_position(number_of_unique_characters)
     starts_at = 0
     number_with_offset = number_of_unique_characters - 1
     input.chars.each_with_index do |char, index|
-        if index >= number_with_offset
-            last_set = Set.new(input[index - number_with_offset..index].split(""))
-            if last_set.size == number_of_unique_characters
-                starts_at = index + 1
-                break
-            end
-        end
+        next unless index >= number_with_offset
+        current_set = Set.new(input[index - number_with_offset..index].split(""))
+        break starts_at = index + 1 if current_set.size == number_of_unique_characters
     end
 
     starts_at
