@@ -42,21 +42,21 @@ def parsed_stacks
     stacks
 end
 
-def get_updated_stacks(reverse)
+def get_updated_stacks(should_reverse_moved)
     stacks = parsed_stacks
     
     parsed_instructions.each do |instruction|
         amount, from, to = instruction
         needs_to_move = stacks[from - 1].pop(amount)
-        stacks[to - 1].concat(reverse ? needs_to_move.reverse : needs_to_move)
+        stacks[to - 1].concat(should_reverse_moved ? needs_to_move.reverse : needs_to_move)
     end
 
     stacks
 end
 
-def solve(reverse)
-    p "Answer: #{get_updated_stacks(reverse).map(&:last).join}"
+def solve(should_reverse_moved)
+    get_updated_stacks(should_reverse_moved).map(&:last).join
 end
 
-solve(true)
-solve(false)
+pp "Answer for Part One: #{solve(true)}"
+pp "Answer for Part Two: #{solve(false)}"
