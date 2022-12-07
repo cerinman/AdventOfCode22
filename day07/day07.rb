@@ -53,7 +53,6 @@ private
     end
 end
 
-part_one = DaySeven.new("input")
-pp part_one.sum_small_directories
-part_two = DaySeven.new("input")
-pp part_two.size_of_directory_to_delete
+day_seven = DaySeven.new("input")
+pp day_seven.sum_small_directories
+pp day_seven.size_of_directory_to_delete
