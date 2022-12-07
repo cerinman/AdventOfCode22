@@ -8,23 +8,18 @@ class DaySeven
         parse_input
     end
 
-    def sum_small_directories
-        @root_directory.sum_directories_within_threshold
-    end
-
     def size_of_directory_to_delete
         @root_directory.find_directory_to_delete
     end
 
-    def read_input
-        File.readlines(@input_path).map(&:strip)
+    def sum_small_directories
+        @root_directory.sum_directories_within_threshold
     end
 
-    def parse_input
-        read_input.each do |line|
-            next if line.include?("$ ls")
-            parse_line(line)
-        end
+private
+
+    def read_input
+        File.readlines(@input_path).map(&:strip)
     end
 
     def parse_command(command_info)
@@ -34,6 +29,13 @@ class DaySeven
         else
             return if command_info[2] == "/"
             @directories << @directories.last.get_sub_directory_by_name(command_info[2])
+        end
+    end
+
+    def parse_input
+        read_input.each do |line|
+            next if line.include?("$ ls")
+            parse_line(line)
         end
     end
 
