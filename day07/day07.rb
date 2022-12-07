@@ -1,4 +1,4 @@
-require_relative "Directory"
+require_relative "directory"
 
 class DaySeven
     def initialize(input_path)
