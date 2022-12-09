@@ -17,7 +17,6 @@ class VisibleTrees
         @visible_trees = @rows.map do |row|
             Array.new(@width, 0)
         end
-        init_max_column_heights
     end
 
     def init_max_column_heights
@@ -52,6 +51,8 @@ class VisibleTrees
     end
 
     def run
+        init_max_column_heights
+
         # Get Left and Top sides
         @rows.each_with_index do |row, index|
             parse_row_forward(row, index)
