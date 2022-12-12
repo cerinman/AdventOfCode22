@@ -22,8 +22,14 @@ class KeepAway
     def run_twenty_rounds
         20.times do
             @monkeys.each do |monkey|
-                monkey.execute_round(@monkeys)
+                round(monkey)
             end
+        end
+    end
+
+    def round(monkey)
+        monkey.inspect_items.each do |(to_monkey, updated_item)|
+            @monkeys[to_monkey].catch_item(updated_item)
         end
     end
 

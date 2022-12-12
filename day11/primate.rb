@@ -14,17 +14,13 @@ class Primate
         @items << item
     end
 
-    def execute_round(primates)
-        inspect_items(primates)
-    end
-
-    def inspect_items(primates)
-        @items.size.times do
+    def inspect_items
+        @items.size.times.map do
             @inspected_count += 1
             item = @items.shift
             updated_item = operate(item)
             to_primate = get_to_primate(updated_item)
-            primates[to_primate].catch_item(updated_item)
+            [to_primate, updated_item]
         end
     end
 
