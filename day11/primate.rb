@@ -1,12 +1,12 @@
 class Primate
     attr_reader :inspected_count
 
-    def initialize(id, items, operation, test)
+    def initialize(id, items, operation, test, relief = 3)
         @id = id
         @items = items
         @operation = operation
         @test = test
-        @relief = 3
+        @relief = relief
         @inspected_count = 0
     end
 
@@ -14,11 +14,11 @@ class Primate
         @items << item
     end
 
-    def inspect_items
+    def inspect_items(modulo)
         @items.size.times.map do
             @inspected_count += 1
             item = @items.shift
-            updated_item = operate(item)
+            updated_item = operate(item % modulo)
             to_primate = get_to_primate(updated_item)
             [to_primate, updated_item]
         end

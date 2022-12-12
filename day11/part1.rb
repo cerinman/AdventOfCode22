@@ -2,6 +2,7 @@ require_relative "primate"
 
 class KeepAway
     def initialize(input_path)
+        @modulo = 1
         @monkeys = parse_input(input_path)
     end
 
@@ -11,6 +12,7 @@ class KeepAway
             id = individual[0]
             items = individual[1].split(" ").drop(2).map(&:to_i)
             operation = individual[2].split("old ").drop(1)[0].split(" ")
+            @modulo *= individual[3].split(" ").last.to_i
             test << individual[3].split(" ").last.to_i
             test << individual[4].split(" ").last.to_i
             test << individual[5].split(" ").last.to_i
@@ -28,7 +30,7 @@ class KeepAway
     end
 
     def round(monkey)
-        monkey.inspect_items.each do |(to_monkey, updated_item)|
+        monkey.inspect_items(@modulo).each do |(to_monkey, updated_item)|
             @monkeys[to_monkey].catch_item(updated_item)
         end
     end
